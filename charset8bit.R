@@ -51,7 +51,7 @@ writePNG(imgalphabet, "alphabets.png")
 
 # Function returns colour array (image) with input text in desired charset (1-3)
 # \n must be used to split lines in text
-# all used characters must exist in the charset (no checking)
+# All used characters must exist in the charset (no checking)
 text2image=function(text, ncharset=2, FONTSIZE=8) {
     lines=strsplit(text, "\n")[[1]]  # split text by \n in a vector of strings
     NLINES=length(lines)
