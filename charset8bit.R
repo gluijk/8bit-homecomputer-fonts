@@ -1,4 +1,4 @@
-# Vintage 8-bit home computers fonts (ZX Spectrum, C64, Amstrad CPC)
+# Vintage 8-bit home computer fonts (ZX Spectrum, C64, Amstrad CPC)
 # www.overfitting.net
 # https://www.overfitting.net/
 
