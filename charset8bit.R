@@ -25,7 +25,7 @@ alphabet=array(0, dim=c(FONTSIZE, FONTSIZE, NCHAR, NCHARSETS))  # 4-D array
 for (set in 1:NCHARSETS) {
     img=readPNG(paste0(charsets[set], "_charset.png"))
     NX=ncol(img)/FONTSIZE
-
+    
     for (char in 1:NCHAR) {
         # Locate the requested character in img
         pos=df[char, set+2]
@@ -55,6 +55,18 @@ writePNG(imgalphabet, "alphabets.png")
 text2image=function(text, ncharset=2) {
     FONTSIZE=8
     
+    # Charset standard colours
+    if (ncharset==1) {  # ZX Spectrum
+        ink       =c(0,0,0)       / 255
+        background=c(192,192,192) / 255
+    } else if (ncharset==2) {  # C64
+        ink       =c(134,122,222)  / 255  # #867ADE
+        background=c(72,58,170)   / 255  # #483AAA    
+    } else if (ncharset==3) {  # Amstrad CPC
+        ink       =c(255,255,0)   / 255
+        background=c(0,0,128)     / 255        
+    } else return(-1)
+    
     lines=strsplit(text, "\n")[[1]]  # split text by \n in a vector of strings
     NLINES=length(lines)
     MAXLEN=max(nchar(lines))
@@ -71,26 +83,14 @@ text2image=function(text, ncharset=2) {
             }
         }
     }
-    img=replicate(3, img)
+    # img=replicate(3, img)  # colour array
     
-    # Colours
-    if (ncharset==1) {  # ZX Spectrum
-        ink       =c(0,0,0)       / 255
-        background=c(191,191,191) / 255
-    } else if (ncharset==2) {  # C64
-        ink       =c(108,94,181)  / 255
-        background=c(53,40,121)   / 255        
-    } else if (ncharset==3) {  # Amstrad CPC
-        ink       =c(255,255,0)   / 255
-        background=c(0,0,128)     / 255        
-    } else return(img)  # B&W output image
-    
-    imgout=img
+    imgout=replicate(3, img)  # colour array
     for (chan in 1:3) {
-        imgout[,,chan]=background[chan]        
-        imgout[,,chan][img[,,chan]==0]=ink[chan]
+        imgout[,,chan][img==1]=background[chan]        
+        imgout[,,chan][img==0]=ink[chan]
     }
-
+    
     return(imgout)
 }
 
@@ -98,6 +98,8 @@ text2image=function(text, ncharset=2) {
 #######################################
 
 # Examples
+text="hello, world"
+
 text=paste0(
     '"The Raven" by Edgar Allan Poe (January 29, 1845)\n\n',
     'Once upon a midnight dreary, while I pondered, weak and weary,\n',
@@ -126,4 +128,3 @@ for (set in 1:NCHARSETS) {
     img=text2image(text, set)
     writePNG(img, paste0("example_", charsets[set], ".png")) 
 }
-
