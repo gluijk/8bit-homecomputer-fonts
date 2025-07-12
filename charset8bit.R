@@ -58,7 +58,7 @@ text2image=function(text, ncharset=2) {
     # Charset standard colours
     if (ncharset==1) {  # ZX Spectrum
         ink       =c(0,0,0)       / 255
-        background=c(192,192,192) / 255
+        background=c(192,192,192) / 255  # #C0C0C0 normal white
     } else if (ncharset==2) {  # C64
         ink       =c(134,122,222)  / 255  # #867ADE
         background=c(72,58,170)   / 255  # #483AAA    
@@ -83,12 +83,11 @@ text2image=function(text, ncharset=2) {
             }
         }
     }
-    # img=replicate(3, img)  # colour array
-    
+
     imgout=replicate(3, img)  # colour array
     for (chan in 1:3) {
-        imgout[,,chan][img==1]=background[chan]        
         imgout[,,chan][img==0]=ink[chan]
+        imgout[,,chan][img==1]=background[chan]        
     }
     
     return(imgout)
