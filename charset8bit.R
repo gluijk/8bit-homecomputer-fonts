@@ -51,7 +51,7 @@ writePNG(imgalphabet, "alphabets.png")
 
 # Function returns colour array (image) with input text in desired charset (1-3)
 # \n must be used to split lines in text
-# All used characters must exist in the charset (no checking)
+# If character doesn't exist in the charset it is replaced by an empty space
 text2image=function(text, ncharset=2) {
     FONTSIZE=8
     
@@ -78,6 +78,8 @@ text2image=function(text, ncharset=2) {
             for (j in 1:NCHARS) {
                 char=substring(lines[i], j, j)
                 charnum=df$charnum[df$char==char]
+                # If char doesn't exist in charset is replaced by empty space
+                if (!length(charnum)) charnum=df$charnum[df$char==' ']
                 img[((i-1)*FONTSIZE+1):(i*FONTSIZE), ((j-1)*FONTSIZE+1):(j*FONTSIZE)]=
                     alphabet[1:FONTSIZE, 1:FONTSIZE, charnum, ncharset]
             }
