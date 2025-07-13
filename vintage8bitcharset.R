@@ -21,7 +21,7 @@ FONTSIZE=8  # 8x8 charset
 charsets=c("zxspectrum", "commodore64", "amstradcpc", "msx")
 NCHARSET=length(charsets)  # 4 charsets
 
-alphabet=array(0, dim=c(FONTSIZE, FONTSIZE, NCHAR, NCHARSET))  # 4-D array
+alphabet=array(0, dim=c(FONTSIZE, FONTSIZE, NCHAR, NCHARSET))  # 4D array
 for (set in 1:NCHARSET) {
     img=readPNG(paste0("charset_", charsets[set], ".png"))
     NX=ncol(img)/FONTSIZE
