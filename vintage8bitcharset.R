@@ -19,10 +19,10 @@ NCHAR=nrow(df)  # 96 different characters
 # Read bitmaps forming each char on each charset -> alphabet
 FONTSIZE=8  # 8x8 charset
 charsets=c("zxspectrum", "commodore64", "amstradcpc", "msx")
-NCHARSETS=length(charsets)
+NCHARSET=length(charsets)  # 4 charsets
 
-alphabet=array(0, dim=c(FONTSIZE, FONTSIZE, NCHAR, NCHARSETS))  # 4-D array
-for (set in 1:NCHARSETS) {
+alphabet=array(0, dim=c(FONTSIZE, FONTSIZE, NCHAR, NCHARSET))  # 4-D array
+for (set in 1:NCHARSET) {
     img=readPNG(paste0("charset_", charsets[set], ".png"))
     NX=ncol(img)/FONTSIZE
     
@@ -39,10 +39,10 @@ for (set in 1:NCHARSETS) {
 
 # Write all 4 alphabets in a single image
 alphabetstrip=alphabet
-dim(alphabetstrip)=c(FONTSIZE, FONTSIZE*NCHAR*NCHARSETS)  # rearrange as long strip
+dim(alphabetstrip)=c(FONTSIZE, FONTSIZE*NCHAR*NCHARSET)  # rearrange as long strip
 
-imgalphabet=matrix(0, nrow=FONTSIZE*NCHARSETS, ncol=FONTSIZE*NCHAR)  # now 4 strips
-for (set in 1:NCHARSETS) {
+imgalphabet=matrix(0, nrow=FONTSIZE*NCHARSET, ncol=FONTSIZE*NCHAR)  # now 4 strips
+for (set in 1:NCHARSET) {
     imgalphabet[((set-1)*FONTSIZE+1):(set*FONTSIZE),]=
         alphabetstrip[1:FONTSIZE, ((set-1)*FONTSIZE*NCHAR+1):(set*FONTSIZE*NCHAR)]
 }
@@ -138,7 +138,7 @@ text=paste0(
     'You can check out any time you like, but you can never leave"...'
 )
 
-for (set in 1:NCHARSETS) {
+for (set in 1:NCHARSET) {
     img=text2image(text, set)
     writePNG(img, paste0("example_", charsets[set], ".png")) 
 }
