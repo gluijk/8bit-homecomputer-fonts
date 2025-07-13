@@ -60,7 +60,7 @@ text2image=function(text, ncharset=2) {
         ink       =c(0,0,0)       / 255
         background=c(192,192,192) / 255  # #C0C0C0 normal white
     } else if (ncharset==2) {  # Commodore 64
-        ink       =c(134,122,222)  / 255  # #867ADE
+        ink       =c(134,122,222) / 255  # #867ADE
         background=c(72,58,170)   / 255  # #483AAA    
     } else if (ncharset==3) {  # Amstrad CPC
         ink       =c(255,255,0)   / 255
