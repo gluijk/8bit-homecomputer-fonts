@@ -76,9 +76,9 @@ text2image=function(text, ncharset=2) {
     
     img=matrix(1, nrow=NLINES*FONTSIZE, ncol=MAXLEN*FONTSIZE)
     for (i in 1:NLINES) {
-        NCHARS=nchar(lines[i])
-        if (NCHARS) {  # not empty line
-            for (j in 1:NCHARS) {
+        NCHAR=nchar(lines[i])
+        if (NCHAR) {  # not empty line
+            for (j in 1:NCHAR) {
                 char=substring(lines[i], j, j)
                 charnum=df$charnum[df$char==char]
                 # If char doesn't exist in charset is replaced by empty space
