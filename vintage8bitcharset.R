@@ -10,7 +10,7 @@ lines=readLines("charsetsutf8.txt", warn=FALSE, encoding="UTF-8")
 charsets_list=strsplit(lines, "\t")
 header=charsets_list[[1]]  # use first row as header
 data=charsets_list[-1]
-df=as.data.frame(do.call(rbind, data), stringsAsFactors=FALSE)  # convert to df
+df=as.data.frame(do.call(rbind, data), stringsAsFactors=FALSE)
 colnames(df)=header
 df[, c(1, 3:6)]=lapply(df[, c(1, 3:6)], as.numeric)
 NCHAR=nrow(df)  # 96 different characters
@@ -41,7 +41,7 @@ for (set in 1:NCHARSETS) {
 alphabetstrip=alphabet
 dim(alphabetstrip)=c(FONTSIZE, FONTSIZE*NCHAR*NCHARSETS)  # rearrange as long strip
 
-imgalphabet=matrix(0, nrow=FONTSIZE*NCHARSETS, ncol=FONTSIZE*NCHAR)  # 4 strips
+imgalphabet=matrix(0, nrow=FONTSIZE*NCHARSETS, ncol=FONTSIZE*NCHAR)  # now 4 strips
 for (set in 1:NCHARSETS) {
     imgalphabet[((set-1)*FONTSIZE+1):(set*FONTSIZE),]=
         alphabetstrip[1:FONTSIZE, ((set-1)*FONTSIZE*NCHAR+1):(set*FONTSIZE*NCHAR)]
@@ -49,9 +49,9 @@ for (set in 1:NCHARSETS) {
 writePNG(imgalphabet, "alphabets.png")
 
 
-# Function returns colour array (image) with input text in desired charset (1-4)
+# Function that returns colour image with input text in desired charset (1-4)
 # \n must be used to split lines in text
-# If character doesn't exist in the charset it is replaced by an empty space
+# If character doesn't exist in the charset it is replaced by a space
 text2image=function(text, ncharset=2) {
     FONTSIZE=8
     
